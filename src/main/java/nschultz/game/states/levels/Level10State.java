@@ -28,12 +28,12 @@ package nschultz.game.states.levels;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import nschultz.game.states.GameOverState;
-import nschultz.game.states.GameState;
-import nschultz.game.util.TimeDelayedProcedure;
-import nschultz.game.ui.GameCanvas;
 import nschultz.game.entities.Entity;
 import nschultz.game.entities.enemies.ReturningEnemy;
+import nschultz.game.states.GameOverState;
+import nschultz.game.states.GameState;
+import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

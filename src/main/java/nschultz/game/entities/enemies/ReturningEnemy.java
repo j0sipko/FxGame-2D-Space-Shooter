@@ -28,7 +28,7 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 
@@ -38,12 +38,16 @@ public final class ReturningEnemy extends Enemy {
     private double velocity;
     private boolean returnedOnce = false;
 
+    private final Image image;
+
     public ReturningEnemy(final Point2D position, final double velocity,
                           final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
         this.game = game;
         this.velocity = velocity;
+
+        image = new Image(getClass().getResource("/returning enemy.png").toExternalForm());
     }
 
     @Override
@@ -71,7 +75,6 @@ public final class ReturningEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.BROWN);
-        brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.drawImage(image, xPosition(), yPosition(), width(), height());
     }
 }
