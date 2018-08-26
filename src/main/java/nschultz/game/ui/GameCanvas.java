@@ -25,7 +25,6 @@
  */
 package nschultz.game.ui;
 
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
@@ -35,6 +34,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import nschultz.game.core.GamePulseSystem;
 import nschultz.game.entities.Entity;
 import nschultz.game.entities.Player;
 import nschultz.game.states.*;
@@ -50,7 +50,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class GameCanvas extends Canvas {
 
-    private final PulseSystem pulseSystem = new PulseSystem();
+    private final GamePulseSystem pulseSystem = new GamePulseSystem(this);
     private final GraphicsContext brush = getGraphicsContext2D();
     private final List<Entity> entities = new ArrayList<>();
     private final List<Entity> copyOfEntities = new ArrayList<>();
@@ -103,7 +103,7 @@ public final class GameCanvas extends Canvas {
     }
 
     void startPulseSystem() {
-        if (pulseSystem.isRunning)
+        if (pulseSystem.isRunning())
             return;
 
         startingWidth = getWidth();
@@ -115,6 +115,9 @@ public final class GameCanvas extends Canvas {
     }
 
     public void update(final long now) {
+        entities.addAll(copyOfEntities);
+        copyOfEntities.clear();
+
         currentGameState.update(now);
         if (starsActive) {
             starDelay.runAfterDelayExact(now, () ->
@@ -187,9 +190,9 @@ public final class GameCanvas extends Canvas {
 
     private void renderFPSCounter() {
         brush.setFont(Font.font(14));
-        brush.setFill(pulseSystem.fps >= pulseSystem.FPS_CAP ?
+        brush.setFill(pulseSystem.fps() >= pulseSystem.FPS_CAP ?
                 Color.YELLOW : Color.RED);
-        brush.fillText("FPS/UPS: " + pulseSystem.fps, 32, 32);
+        brush.fillText("FPS/UPS: " + pulseSystem.fps(), 32, 32);
     }
 
     public List<Entity> entities() {
@@ -232,7 +235,7 @@ public final class GameCanvas extends Canvas {
 
     void pause() {
         if (isPlayableState(currentGameState.value())) {
-            if (pulseSystem.isRunning) {
+            if (pulseSystem.isRunning()) {
                 pulseSystem.stop();
             } else {
                 pulseSystem.start();
@@ -262,46 +265,5 @@ public final class GameCanvas extends Canvas {
 
     public void enableStars() {
         starsActive = true;
-    }
-
-    private final class PulseSystem extends AnimationTimer {
-
-        private final TimeDelayedProcedure delay = new TimeDelayedProcedure(
-                1, TimeUnit.SECONDS
-        );
-
-        private final int FPS_CAP = 60;
-        private int fps;
-        private int frames;
-        private boolean isRunning;
-
-        @Override
-        public void handle(final long now) {
-            delay.runAfterDelayExact(now, () -> {
-                System.out.println("Entities: " + entities.size());
-                fps = frames;
-                frames = 0;
-            });
-
-            entities.addAll(copyOfEntities);
-            copyOfEntities.clear();
-
-            update(now);
-            render(now);
-
-            frames++;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            isRunning = true;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            isRunning = false;
-        }
     }
 }
