@@ -28,7 +28,7 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 import nschultz.game.util.TimeDelayedProcedure;
@@ -44,12 +44,15 @@ public final class StoppingEnemy extends Enemy {
     private final TimeDelayedProcedure stoppingDelay =
             new TimeDelayedProcedure(5, TimeUnit.SECONDS);
 
+    private final Image image;
+
     public StoppingEnemy(final Point2D position, final double velocity,
                          final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
         this.startingVelocity = velocity;
+        image = new Image(getClass().getResource("/stopping enemy.png").toExternalForm());
     }
 
     @Override
@@ -79,7 +82,6 @@ public final class StoppingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.DARKSEAGREEN);
-        brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.drawImage(image, xPosition(), yPosition(), width(), height());
     }
 }
