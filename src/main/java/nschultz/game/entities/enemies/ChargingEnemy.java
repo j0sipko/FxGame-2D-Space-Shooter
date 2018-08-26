@@ -23,33 +23,66 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.TimeDelayedProcedure;
 
-public final class SimpleEnemy extends Enemy {
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-    private final Color color;
-    private final double velocity;
+public final class ChargingEnemy extends Enemy {
 
-    public SimpleEnemy(final Point2D position, final double velocity,
-                       final Color color,
-                       final GameCanvas game) {
+    private final double initialXPositionCapture;
 
-        super(position, new Dimension2D(16, 16), game);
-        this.velocity = velocity;
-        this.color = color;
+    private final double chargingVelocity;
+    private Color color = new Color(1, 1, 1, 1);
+    private boolean steppedOut = false;
+    private boolean chargeCooldown = false;
+    private final double movingAmountBeforeCharging;
+    private final TimeDelayedProcedure chargeCooldownDelay =
+            new TimeDelayedProcedure(3, TimeUnit.SECONDS);
+
+    public ChargingEnemy(final Point2D position, final GameCanvas game) {
+        super(position, new Dimension2D(32, 32), game);
+
+        final Random rng = new Random();
+        chargingVelocity = rng.nextInt(16) + 16;
+        movingAmountBeforeCharging = rng.nextInt(128) + 64;
+        initialXPositionCapture = xPosition();
     }
 
     @Override
     public void update(final long now) {
         super.update(now);
-        moveLeft(velocity);
         killIfOutOfBounds();
+
+        if (!steppedOut) {
+            final double steppingOutVelocity = 2;
+            moveLeft(steppingOutVelocity);
+        }
+
+        if (initialXPositionCapture - xPosition() >= movingAmountBeforeCharging) {
+            steppedOut = true;
+        }
+
+        if (steppedOut) {
+            chargeCooldownDelay.runAfterDelayExact(now, () -> chargeCooldown = true);
+            if (chargeCooldown) {
+                moveLeft(chargingVelocity);
+            } else {
+                final double colorDelta = 0.01;
+                double newValue = color.getBlue() - colorDelta;
+                if (newValue <= 0) {
+                    newValue = 0;
+                }
+                color = new Color(color.getRed(), newValue, newValue, 1);
+            }
+        }
     }
 
     private void killIfOutOfBounds() {

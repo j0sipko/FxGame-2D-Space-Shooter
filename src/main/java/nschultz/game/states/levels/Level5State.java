@@ -32,7 +32,7 @@ import nschultz.game.states.GameOverState;
 import nschultz.game.states.GameState;
 import nschultz.game.util.TimeDelayedProcedure;
 import nschultz.game.ui.GameCanvas;
-import nschultz.game.entities.DisappearingEnemy;
+import nschultz.game.entities.enemies.DisappearingEnemy;
 import nschultz.game.entities.Entity;
 
 import java.util.Random;

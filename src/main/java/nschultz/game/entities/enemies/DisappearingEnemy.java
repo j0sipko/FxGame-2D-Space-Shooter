@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

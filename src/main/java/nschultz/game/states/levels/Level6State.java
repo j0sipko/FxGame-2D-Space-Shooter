@@ -33,7 +33,7 @@ import nschultz.game.states.GameState;
 import nschultz.game.util.TimeDelayedProcedure;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.entities.Entity;
-import nschultz.game.entities.GrowingEnemy;
+import nschultz.game.entities.enemies.GrowingEnemy;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -31,20 +31,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 
-public final class JumpingEnemy extends Enemy {
+public final class SimpleEnemy extends Enemy {
 
-    private double angle = 0;
+    private final Color color;
+    private final double velocity;
 
-    public JumpingEnemy(final Point2D position, final GameCanvas game) {
-        super(position, new Dimension2D(8, 8), game);
+    public SimpleEnemy(final Point2D position, final double velocity,
+                       final Color color,
+                       final GameCanvas game) {
+
+        super(position, new Dimension2D(16, 16), game);
+        this.velocity = velocity;
+        this.color = color;
     }
 
     @Override
     public void update(final long now) {
-        angle += 0.25;
-        moveLeft(2);
-        moveUp(10 * Math.cos(angle));
         super.update(now);
+        moveLeft(velocity);
         killIfOutOfBounds();
     }
 
@@ -55,7 +59,7 @@ public final class JumpingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.RED);
+        brush.setFill(color);
         brush.fillRect(xPosition(), yPosition(), width(), height());
     }
 }

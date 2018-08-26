@@ -55,7 +55,7 @@ public abstract class Entity {
 
     public abstract void render(final GraphicsContext brush, final long now);
 
-    final void moveUp(final double amount) {
+    protected final void moveUp(final double amount) {
         hitBox.setY(hitBox.getY() - amount);
     }
 
@@ -67,7 +67,7 @@ public abstract class Entity {
         hitBox.setX(hitBox.getX() + amount);
     }
 
-    final void moveLeft(final double amount) {
+    protected final void moveLeft(final double amount) {
         hitBox.setX(hitBox.getX() - amount);
     }
 
@@ -87,7 +87,7 @@ public abstract class Entity {
         return hitBox.getHeight();
     }
 
-    final Rectangle hitBox() {
+    protected final Rectangle hitBox() {
         return hitBox;
     }
 
@@ -99,11 +99,11 @@ public abstract class Entity {
         return gameHeight;
     }
 
-    final void kill() {
+    public final void kill() {
         isAlive = false;
     }
 
-    final void grow(final Dimension2D newSize) {
+    protected final void grow(final Dimension2D newSize) {
         hitBox.setWidth(newSize.getWidth());
         hitBox.setHeight(newSize.getHeight());
     }

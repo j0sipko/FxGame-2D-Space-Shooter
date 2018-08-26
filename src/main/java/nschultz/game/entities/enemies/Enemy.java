@@ -1,7 +1,9 @@
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import nschultz.game.entities.Entity;
+import nschultz.game.entities.Player;
 import nschultz.game.ui.GameCanvas;
 
 public abstract class Enemy extends Entity {

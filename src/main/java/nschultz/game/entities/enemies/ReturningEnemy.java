@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -32,48 +32,46 @@ import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 
-public final class GrowingEnemy extends Enemy {
+public final class ReturningEnemy extends Enemy {
 
+    private final GameCanvas game;
     private double velocity;
+    private boolean returnedOnce = false;
 
-    private double wDelta = 0.25;
-    private double hDelta = 0.25;
+    public ReturningEnemy(final Point2D position, final double velocity,
+                          final GameCanvas game) {
 
-    public GrowingEnemy(final Point2D position, final double velocity,
-                        final GameCanvas game) {
-
-        super(position, new Dimension2D(8, 8), game);
+        super(position, new Dimension2D(16, 16), game);
+        this.game = game;
         this.velocity = velocity;
     }
-
 
     @Override
     public void update(final long now) {
         super.update(now);
         moveLeft(velocity);
-        killIfOutOfBounds();
+        returnAfterRightIsReached();
+    }
 
-        final double maxWidth = 128;
-        final double maxHeight = 128;
-        if (width() >= maxWidth)
-            wDelta = new NumberNegation(wDelta).doubleValue();
-        if (height() >= maxHeight)
-            hDelta = new NumberNegation(hDelta).doubleValue();
-
-        grow(new Dimension2D(width() + wDelta, height() + hDelta));
-
-        if (width() <= 0 && height() <= 0)
-            kill();
+    private void returnAfterRightIsReached() {
+        if (returnedOnce) {
+            killIfOutOfBounds();
+        }
+        if (xPosition() <= 0) {
+            velocity = new NumberNegation(velocity).doubleValue();
+            returnedOnce = true;
+        }
     }
 
     private void killIfOutOfBounds() {
-        if (xPosition() <= 0)
+        if (xPosition() >= game.startingWidth()) {
             kill();
+        }
     }
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.DARKSEAGREEN);
+        brush.setFill(Color.BROWN);
         brush.fillRect(xPosition(), yPosition(), width(), height());
     }
 }

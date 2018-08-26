@@ -23,53 +23,29 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.entities;
+package nschultz.game.entities.enemies;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
-import nschultz.game.util.NumberNegation;
-import nschultz.game.util.TimeDelayedProcedure;
 
-import java.util.concurrent.TimeUnit;
+public final class JumpingEnemy extends Enemy {
 
-public final class StoppingEnemy extends Enemy {
+    private double angle = 0;
 
-    private final double startingVelocity;
-    private double velocity;
-    private double delta = 0.1;
-    private boolean stop;
-    private final TimeDelayedProcedure stoppingDelay =
-            new TimeDelayedProcedure(5, TimeUnit.SECONDS);
-
-    public StoppingEnemy(final Point2D position, final double velocity,
-                         final GameCanvas game) {
-
-        super(position, new Dimension2D(16, 16), game);
-        this.velocity = velocity;
-        this.startingVelocity = velocity;
+    public JumpingEnemy(final Point2D position, final GameCanvas game) {
+        super(position, new Dimension2D(8, 8), game);
     }
 
     @Override
     public void update(final long now) {
+        angle += 0.25;
+        moveLeft(2);
+        moveUp(10 * Math.cos(angle));
         super.update(now);
         killIfOutOfBounds();
-
-        if (!stop) {
-            velocity -= delta;
-            if (velocity <= 0) {
-                delta = new NumberNegation(delta).doubleValue();
-                stop = true;
-            }
-            if (velocity >= startingVelocity) {
-                delta = new NumberNegation(delta).doubleValue();
-            }
-            moveLeft(velocity);
-        } else {
-            stoppingDelay.runAfterDelayExact(now, () -> stop = false);
-        }
     }
 
     private void killIfOutOfBounds() {
@@ -79,7 +55,7 @@ public final class StoppingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.DARKSEAGREEN);
+        brush.setFill(Color.RED);
         brush.fillRect(xPosition(), yPosition(), width(), height());
     }
 }

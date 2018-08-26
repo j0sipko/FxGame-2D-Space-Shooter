@@ -27,6 +27,7 @@ package nschultz.game.states;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import nschultz.game.entities.enemies.*;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.entities.*;
 
