@@ -28,6 +28,10 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.TimeDelayedProcedure;
@@ -47,6 +51,10 @@ public final class ChargingEnemy extends Enemy {
     private final TimeDelayedProcedure chargeCooldownDelay =
             new TimeDelayedProcedure(3, TimeUnit.SECONDS);
 
+    private final WritableImage image;
+    private final PixelWriter writer;
+    private final PixelReader reader;
+
     public ChargingEnemy(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(32, 32), game);
 
@@ -54,6 +62,11 @@ public final class ChargingEnemy extends Enemy {
         chargingVelocity = rng.nextInt(16) + 16;
         movingAmountBeforeCharging = rng.nextInt(128) + 64;
         initialXPositionCapture = xPosition();
+
+        final Image source = new Image(getClass().getResource("/charging enemy.png").toExternalForm());
+        reader = source.getPixelReader();
+        image = new WritableImage(source.getPixelReader(), 32, 32);
+        writer = image.getPixelWriter();
     }
 
     @Override
@@ -81,8 +94,20 @@ public final class ChargingEnemy extends Enemy {
                     newValue = 0;
                 }
                 color = new Color(color.getRed(), newValue, newValue, 1);
+                for (int x = 0; x < 32; x++) {
+                    for (int y = 0; y < 32; y++) {
+                        final Color c = reader.getColor(x, y);
+                        if (isWhiteColor(c)) {
+                            writer.setColor(x, y, color);
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private boolean isWhiteColor(final Color c) {
+        return c.getRed() == 1 && c.getGreen() == 1 && c.getBlue() == 1;
     }
 
     private void killIfOutOfBounds() {
@@ -93,6 +118,6 @@ public final class ChargingEnemy extends Enemy {
     @Override
     public void render(final GraphicsContext brush, final long now) {
         brush.setFill(color);
-        brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.drawImage(image, xPosition(), yPosition(), width(), height());
     }
 }
