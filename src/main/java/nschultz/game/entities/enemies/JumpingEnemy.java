@@ -28,15 +28,18 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 
 public final class JumpingEnemy extends Enemy {
 
     private double angle = 0;
 
+    private final Image image;
+
     public JumpingEnemy(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(8, 8), game);
+        image = new Image(getClass().getResource("/jumping enemy.png").toExternalForm());
     }
 
     @Override
@@ -55,7 +58,6 @@ public final class JumpingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.RED);
-        brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.drawImage(image, xPosition(), yPosition(), width(), height());
     }
 }
