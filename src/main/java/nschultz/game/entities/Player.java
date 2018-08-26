@@ -54,16 +54,21 @@ public final class Player extends Entity {
     private final TimeDelayedProcedure bulletDelay = new TimeDelayedProcedure(
             200, TimeUnit.MILLISECONDS
     );
+    private final TimeDelayedProcedure imageDelay = new TimeDelayedProcedure(
+            800, TimeUnit.MILLISECONDS
+    );
 
-    private final Image image;
+    private final Image[] image = new Image[2];
     private final List<AlphaParticle> thrustParticles = new ArrayList<>();
     private final Random rng = new Random(64);
     private static boolean thrustParticlesActive = false;
+    private int imageIndex;
 
     public Player(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(64, 32), game);
         this.game = game;
-        image = new Image(getClass().getResource("/player.png").toExternalForm());
+        image[0] = new Image(getClass().getResource("/player_animation1.png").toExternalForm());
+        image[1] = new Image(getClass().getResource("/player_animation2.png").toExternalForm());
     }
 
     @Override
@@ -75,6 +80,14 @@ public final class Player extends Entity {
         checkShootBullet(now);
         thrustParticles.forEach(AlphaParticle::update);
         thrustParticles.removeIf(AlphaParticle::isDead);
+        imageDelay.runAfterDelay(now, () -> {
+            if (imageIndex == 0) {
+                imageIndex = 1;
+            } else {
+                imageIndex = 0;
+            }
+        });
+
     }
 
     private void checkShootBullet(final long now) {
@@ -156,7 +169,7 @@ public final class Player extends Entity {
     public void render(final GraphicsContext brush, final long now) {
         //brush.setFill(Color.BLUE);
         //brush.fillRect(xPosition(), yPosition(), width(), height());
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(image[imageIndex], xPosition(), yPosition(), width(), height());
         thrustParticles.forEach(particle -> particle.render(brush));
     }
 

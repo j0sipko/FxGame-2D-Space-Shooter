@@ -30,11 +30,18 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.TimeDelayedProcedure;
+
+import java.util.concurrent.TimeUnit;
 
 public final class SimpleEnemy extends Enemy {
 
     private final double velocity;
-    private final Image image;
+    private final Image[] image = new Image[2];
+    private final TimeDelayedProcedure imageDelay = new TimeDelayedProcedure(
+            800, TimeUnit.MILLISECONDS
+    );
+    private int imageIndex = 0;
 
     public SimpleEnemy(final Point2D position, final double velocity,
                        final GameCanvas game) {
@@ -42,7 +49,8 @@ public final class SimpleEnemy extends Enemy {
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
 
-        image = new Image(getClass().getResource("/enemy.png").toExternalForm());
+        image[0] = new Image(getClass().getResource("/enemy_animation1.png").toExternalForm());
+        image[1] = new Image(getClass().getResource("/enemy_animation2.png").toExternalForm());
     }
 
     @Override
@@ -50,6 +58,14 @@ public final class SimpleEnemy extends Enemy {
         super.update(now);
         moveLeft(velocity);
         killIfOutOfBounds();
+
+        imageDelay.runAfterDelay(now, () -> {
+            if (imageIndex == 0) {
+                imageIndex = 1;
+            } else {
+                imageIndex = 0;
+            }
+        });
     }
 
     private void killIfOutOfBounds() {
@@ -59,6 +75,6 @@ public final class SimpleEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(image[imageIndex], xPosition(), yPosition(), width(), height());
     }
 }
