@@ -55,93 +55,9 @@ public final class Bullet extends Entity {
 
     private void checkCollisionWithEnemies() {
         game.entities().stream()
-                .filter(entity -> entity instanceof SimpleEnemy)
+                .filter(entity -> entity instanceof Enemy)
                 .forEach(entity -> {
-                    final SimpleEnemy enemy = (SimpleEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof DisappearingEnemy)
-                .forEach(entity -> {
-                    final DisappearingEnemy enemy = (DisappearingEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof GrowingEnemy)
-                .forEach(entity -> {
-                    final GrowingEnemy enemy = (GrowingEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof StoppingEnemy)
-                .forEach(entity -> {
-                    final StoppingEnemy enemy = (StoppingEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof ChargingEnemy)
-                .forEach(entity -> {
-                    final ChargingEnemy enemy = (ChargingEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof JumpingEnemy)
-                .forEach(entity -> {
-                    final JumpingEnemy enemy = (JumpingEnemy) entity;
-                    if (hitBox().intersects(
-                            enemy.xPosition(), enemy.yPosition(),
-                            enemy.width(), enemy.height())) {
-
-                        kill();
-                        enemy.kill();
-                        game.increaseScore();
-                    }
-                });
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof ReturningEnemy)
-                .forEach(entity -> {
-                    final ReturningEnemy enemy = (ReturningEnemy) entity;
+                    final Enemy enemy = (Enemy) entity;
                     if (hitBox().intersects(
                             enemy.xPosition(), enemy.yPosition(),
                             enemy.width(), enemy.height())) {
@@ -152,7 +68,6 @@ public final class Bullet extends Entity {
                     }
                 });
     }
-
 
     @Override
     public void render(final GraphicsContext brush, final long now) {

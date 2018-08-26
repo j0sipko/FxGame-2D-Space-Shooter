@@ -29,20 +29,20 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import nschultz.game.util.TimeDelayedProcedure;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
+import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.concurrent.TimeUnit;
 
-public final class StoppingEnemy extends Entity {
+public final class StoppingEnemy extends Enemy {
 
-    private final GameCanvas game;
     private final double startingVelocity;
     private double velocity;
     private double delta = 0.1;
     private boolean stop;
-    private final TimeDelayedProcedure stoppingDelay = new TimeDelayedProcedure(5, TimeUnit.SECONDS);
+    private final TimeDelayedProcedure stoppingDelay =
+            new TimeDelayedProcedure(5, TimeUnit.SECONDS);
 
     public StoppingEnemy(final Point2D position, final double velocity,
                          final GameCanvas game) {
@@ -50,12 +50,11 @@ public final class StoppingEnemy extends Entity {
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
         this.startingVelocity = velocity;
-        this.game = game;
     }
 
     @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         killIfOutOfBounds();
 
         if (!stop) {
@@ -71,18 +70,6 @@ public final class StoppingEnemy extends Entity {
         } else {
             stoppingDelay.runAfterDelayExact(now, () -> stop = false);
         }
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

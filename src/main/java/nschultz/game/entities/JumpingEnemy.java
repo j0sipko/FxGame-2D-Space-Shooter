@@ -31,14 +31,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 
-public final class JumpingEnemy extends Entity {
+public final class JumpingEnemy extends Enemy {
 
-    private final GameCanvas game;
     private double angle = 0;
 
     public JumpingEnemy(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(8, 8), game);
-        this.game = game;
     }
 
     @Override
@@ -46,20 +44,8 @@ public final class JumpingEnemy extends Entity {
         angle += 0.25;
         moveLeft(2);
         moveUp(10 * Math.cos(angle));
-        checkCollisionWithPlayer();
+        super.update(now);
         killIfOutOfBounds();
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

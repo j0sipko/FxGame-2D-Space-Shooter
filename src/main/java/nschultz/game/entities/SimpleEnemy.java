@@ -31,9 +31,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 
-public final class SimpleEnemy extends Entity {
+public final class SimpleEnemy extends Enemy {
 
-    private final GameCanvas game;
     private final Color color;
     private final double velocity;
 
@@ -42,28 +41,15 @@ public final class SimpleEnemy extends Entity {
                        final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
-        this.game = game;
         this.velocity = velocity;
         this.color = color;
     }
 
     @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         moveLeft(velocity);
         killIfOutOfBounds();
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

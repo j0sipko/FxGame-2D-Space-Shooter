@@ -32,9 +32,8 @@ import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 
-public final class DisappearingEnemy extends Entity {
+public final class DisappearingEnemy extends Enemy {
 
-    private final GameCanvas game;
     private final double velocity;
 
     private double alpha = 1.0;
@@ -44,32 +43,18 @@ public final class DisappearingEnemy extends Entity {
                              final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
-        this.game = game;
         this.velocity = velocity;
     }
 
-
     @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         moveLeft(velocity);
         killIfOutOfBounds();
 
         alpha -= delta;
         if (alpha <= 0 || alpha >= 1)
             delta = new NumberNegation(delta).doubleValue();
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

@@ -29,15 +29,14 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import nschultz.game.util.TimeDelayedProcedure;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public final class ChargingEnemy extends Entity {
+public final class ChargingEnemy extends Enemy {
 
-    private final GameCanvas game;
     private final double initialXPositionCapture;
 
     private final double chargingVelocity;
@@ -45,11 +44,11 @@ public final class ChargingEnemy extends Entity {
     private boolean steppedOut = false;
     private boolean chargeCooldown = false;
     private final double movingAmountBeforeCharging;
-    private final TimeDelayedProcedure chargeCooldownDelay = new TimeDelayedProcedure(3, TimeUnit.SECONDS);
+    private final TimeDelayedProcedure chargeCooldownDelay =
+            new TimeDelayedProcedure(3, TimeUnit.SECONDS);
 
     public ChargingEnemy(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(32, 32), game);
-        this.game = game;
 
         final Random rng = new Random();
         chargingVelocity = rng.nextInt(16) + 16;
@@ -57,8 +56,9 @@ public final class ChargingEnemy extends Entity {
         initialXPositionCapture = xPosition();
     }
 
+    @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         killIfOutOfBounds();
 
         if (!steppedOut) {
@@ -83,18 +83,6 @@ public final class ChargingEnemy extends Entity {
                 color = new Color(color.getRed(), newValue, newValue, 1);
             }
         }
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

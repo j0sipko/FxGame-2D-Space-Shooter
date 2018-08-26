@@ -32,9 +32,8 @@ import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 
-public final class GrowingEnemy extends Entity {
+public final class GrowingEnemy extends Enemy {
 
-    private final GameCanvas game;
     private double velocity;
 
     private double wDelta = 0.25;
@@ -44,14 +43,13 @@ public final class GrowingEnemy extends Entity {
                         final GameCanvas game) {
 
         super(position, new Dimension2D(8, 8), game);
-        this.game = game;
         this.velocity = velocity;
     }
 
 
     @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         moveLeft(velocity);
         killIfOutOfBounds();
 
@@ -66,18 +64,6 @@ public final class GrowingEnemy extends Entity {
 
         if (width() <= 0 && height() <= 0)
             kill();
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void killIfOutOfBounds() {

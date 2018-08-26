@@ -32,7 +32,7 @@ import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
 
-public final class ReturningEnemy extends Entity {
+public final class ReturningEnemy extends Enemy {
 
     private final GameCanvas game;
     private double velocity;
@@ -48,21 +48,9 @@ public final class ReturningEnemy extends Entity {
 
     @Override
     public void update(final long now) {
-        checkCollisionWithPlayer();
+        super.update(now);
         moveLeft(velocity);
         returnAfterRightIsReached();
-    }
-
-    private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
     }
 
     private void returnAfterRightIsReached() {
