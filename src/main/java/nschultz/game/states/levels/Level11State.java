@@ -61,7 +61,7 @@ public final class Level11State extends GameState {
                             rng.nextInt(
                                     (int) game().resolution().getHeight() - yOffset
                             )
-                    ), rng.nextInt(8) + 8, Color.RED, game()));
+                    ), rng.nextInt(8) + 8, game()));
                     totalAmountOfEnemySpawned++;
                 }
             });

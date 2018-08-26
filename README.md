@@ -4,7 +4,6 @@ Game written in pure JavaFx (Java 10).
 
 ![](images/FxShooter%20Title%20Screen.PNG)
 
-![](images/Leve%201.PNG)
+![](images/Level1.PNG)
 
-![](images/Level%202.PNG)
-
+![](images/Level2.PNG)

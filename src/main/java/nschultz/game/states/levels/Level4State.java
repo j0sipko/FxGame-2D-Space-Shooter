@@ -59,7 +59,7 @@ public final class Level4State extends GameState {
                         rng.nextInt(
                                 (int) game().resolution().getHeight() - yOffset
                         )
-                ), rng.nextInt(16) + 2, Color.DARKORANGE, game()));
+                ), rng.nextInt(16) + 2, game()));
 
                 totalAmountOfEnemySpawned++;
             });

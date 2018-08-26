@@ -28,21 +28,21 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 
 public final class SimpleEnemy extends Enemy {
 
-    private final Color color;
     private final double velocity;
+    private final Image image;
 
     public SimpleEnemy(final Point2D position, final double velocity,
-                       final Color color,
                        final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
-        this.color = color;
+
+        image = new Image(getClass().getResource("/enemy.png").toExternalForm());
     }
 
     @Override
@@ -59,7 +59,6 @@ public final class SimpleEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(color);
-        brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.drawImage(image, xPosition(), yPosition(), width(), height());
     }
 }
