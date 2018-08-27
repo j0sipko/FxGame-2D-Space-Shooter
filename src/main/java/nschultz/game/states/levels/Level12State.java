@@ -29,40 +29,53 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import nschultz.game.entities.Entity;
-import nschultz.game.entities.enemies.SimpleEnemy;
+import nschultz.game.entities.enemies.ChargingEnemy;
+import nschultz.game.entities.enemies.StoppingEnemy;
 import nschultz.game.states.GameOverState;
 import nschultz.game.states.GameState;
+import nschultz.game.states.VictoryState;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public final class Level11State extends GameState {
+public final class Level12State extends GameState {
 
-    private static final int MAX_AMOUNT_OF_ENEMIES = 250;
+    private static final int MAX_AMOUNT_OF_ENEMIES = 60;
 
-    private final Random rng = new Random(1100);
-    private final TimeDelayedProcedure spawnDelay = new TimeDelayedProcedure(3, TimeUnit.SECONDS);
+    private final Random rng = new Random(1200);
+    private final TimeDelayedProcedure spawnDelay = new TimeDelayedProcedure(
+            1, TimeUnit.SECONDS
+    );
     private int totalAmountOfEnemySpawned;
 
-    Level11State(final GameCanvas game) {
+    Level12State(final GameCanvas game) {
         super(game);
     }
 
     private void spawnEnemy(final long now) {
         if (totalAmountOfEnemySpawned < MAX_AMOUNT_OF_ENEMIES) {
             spawnDelay.runAfterDelayExact(now, () -> {
-                for (int i = 0; i < 25; i++) {
-                    final int yOffset = 64;
-                    game().entities().add(new SimpleEnemy(new Point2D(
-                            game().resolution().getWidth(),
-                            rng.nextInt(
-                                    (int) game().resolution().getHeight() - yOffset
-                            )
-                    ), rng.nextInt(8) + 8, game()));
-                    totalAmountOfEnemySpawned++;
-                }
+                final int yOffset = 64;
+
+                game().entities().add(new StoppingEnemy(new Point2D(
+                        game().resolution().getWidth(),
+                        rng.nextInt(
+                                (int) game().resolution().getHeight() - yOffset
+                        )
+                ), rng.nextInt(8) + 4, game()));
+
+                totalAmountOfEnemySpawned++;
+
+                game().entities().add(new ChargingEnemy(new Point2D(
+                        game().resolution().getWidth(),
+                        rng.nextInt(
+                                (int) game().resolution().getHeight() - yOffset
+                        )
+                ), game()));
+
+                totalAmountOfEnemySpawned++;
             });
         }
     }
@@ -75,10 +88,12 @@ public final class Level11State extends GameState {
 
         if (hasPlayerDied()) {
             game().switchGameState(new GameOverState(game()));
+            // return, so we do not get victory if all enemies have been spawned
+            return;
         }
 
         if (isLevelCompleted() && totalAmountOfEnemySpawned == MAX_AMOUNT_OF_ENEMIES) {
-            game().switchGameState(new Level12State(game()));
+            game().switchGameState(new VictoryState(game()));
         }
     }
 
@@ -93,6 +108,6 @@ public final class Level11State extends GameState {
 
     @Override
     public String toString() {
-        return "Level 11 (Heartbeat)";
+        return "Level 12 (Tactics)";
     }
 }

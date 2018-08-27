@@ -27,9 +27,9 @@ package nschultz.game.states;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import nschultz.game.entities.enemies.*;
+import nschultz.game.entities.Player;
+import nschultz.game.entities.enemies.Enemy;
 import nschultz.game.ui.GameCanvas;
-import nschultz.game.entities.*;
 
 public abstract class GameState {
 
@@ -65,15 +65,8 @@ public abstract class GameState {
     }
 
     public final boolean isLevelCompleted() {
-        return game().entities().stream()
-                .noneMatch(entity ->
-                        entity instanceof SimpleEnemy ||
-                                entity instanceof GrowingEnemy ||
-                                entity instanceof DisappearingEnemy ||
-                                entity instanceof StoppingEnemy ||
-                                entity instanceof ChargingEnemy ||
-                                entity instanceof JumpingEnemy ||
-                                entity instanceof ReturningEnemy
-                );
+        return game().entities().stream().noneMatch(
+                entity -> entity instanceof Enemy
+        );
     }
 }
