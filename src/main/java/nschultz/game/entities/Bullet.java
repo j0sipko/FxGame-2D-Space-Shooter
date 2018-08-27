@@ -28,6 +28,7 @@ package nschultz.game.entities;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.paint.Color;
 import nschultz.game.entities.enemies.Enemy;
 import nschultz.game.ui.GameCanvas;
@@ -37,7 +38,7 @@ public final class Bullet extends Entity {
     private final GameCanvas game;
 
     Bullet(final Point2D position, final GameCanvas game) {
-        super(position, new Dimension2D(4, 4), game);
+        super(position, new Dimension2D(8, 4), game);
         this.game = game;
     }
 
@@ -72,7 +73,9 @@ public final class Bullet extends Entity {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.setFill(Color.WHITE);
+        brush.setFill(Color.CYAN);
+        brush.setEffect(new MotionBlur());
         brush.fillRect(xPosition(), yPosition(), width(), height());
+        brush.setEffect(null);
     }
 }
