@@ -55,6 +55,14 @@ public abstract class Entity {
 
     public abstract void render(final GraphicsContext brush, final long now);
 
+    protected final void moveToX(final double x) {
+        hitBox.setX(x);
+    }
+
+    protected final void moveToY(final double y) {
+        hitBox.setY(y);
+    }
+
     protected final void moveUp(final double amount) {
         hitBox.setY(hitBox.getY() - amount);
     }
