@@ -46,10 +46,10 @@ final class Scaling {
         // being garbage collected
         // 2. Implement own little event bus system (does not have to be perfect
         // for this kind of task)
-        bind(scene);
+        bind();
     }
 
-    private void bind(final Scene scene) {
+    private void bind() {
         final ReadOnlyDoubleProperty width = scene.widthProperty();
         scale.xProperty().bind(width.divide(scene.getWidth()));
 
