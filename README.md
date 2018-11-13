@@ -1,5 +1,5 @@
 # FxGame-2D-Space-Shooter
-Game written in pure JavaFx (Java 10).
+Game written in pure JavaFx (Java 11).
 
 
 ![](images/FxShooter%20Title%20Screen.PNG)
