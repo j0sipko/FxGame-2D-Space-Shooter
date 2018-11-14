@@ -40,6 +40,7 @@ import nschultz.game.entities.Player;
 import nschultz.game.states.*;
 import nschultz.game.states.settings.SettingsState;
 import nschultz.game.states.settings.VideoSettingsState;
+import nschultz.game.util.AttemptsToEnsureGc;
 import nschultz.game.util.NumberNegation;
 import nschultz.game.util.TimeDelayedProcedure;
 
@@ -111,7 +112,7 @@ public final class GameCanvas extends Canvas {
         startingHeight = getHeight();
         player = new Player(new Point2D(startingWidth / 2, (startingHeight / 2) + 64), this);
         entities.add(player);
-        System.gc();
+        new AttemptsToEnsureGc(2).run();
         pulseSystem.start();
     }
 
@@ -235,6 +236,7 @@ public final class GameCanvas extends Canvas {
             currentGameState.onKeyInput(event, false);
         });
         score = 0;
+        new AttemptsToEnsureGc(2).run();
     }
 
     void pause() {
