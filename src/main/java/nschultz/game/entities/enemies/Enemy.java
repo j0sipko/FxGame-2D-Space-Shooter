@@ -28,7 +28,6 @@ package nschultz.game.entities.enemies;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import nschultz.game.entities.Entity;
-import nschultz.game.entities.Player;
 import nschultz.game.ui.GameCanvas;
 
 public abstract class Enemy extends Entity {
@@ -48,14 +47,10 @@ public abstract class Enemy extends Entity {
     }
 
     private void checkCollisionWithPlayer() {
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(player -> {
-                    if (hitBox().intersects(
-                            player.xPosition(), player.yPosition(),
-                            player.width(), player.height())) {
-                        player.kill();
-                    }
-                });
+        if (hitBox().intersects(
+                game.player().xPosition(), game.player().yPosition(),
+                game.player().width(), game.player().height())) {
+            game.player().kill();
+        }
     }
 }

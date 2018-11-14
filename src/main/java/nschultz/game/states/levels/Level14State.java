@@ -64,7 +64,7 @@ public final class Level14State extends GameState {
                             rng.nextInt(
                                     (int) game().resolution().getHeight() - yOffset
                             )
-                    ), game())));
+                    ), game(), game().player())));
             totalAmountOfEnemySpawned++;
         }
     }

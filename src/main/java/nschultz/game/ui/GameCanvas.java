@@ -45,6 +45,7 @@ import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -196,6 +197,10 @@ public final class GameCanvas extends Canvas {
 
     public List<Entity> entities() {
         return entities;
+    }
+
+    public Player player() {
+        return Objects.requireNonNull(player);
     }
 
     public void spawn(final Entity entity) {

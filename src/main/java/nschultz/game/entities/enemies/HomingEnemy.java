@@ -4,23 +4,23 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import nschultz.game.entities.Player;
+import nschultz.game.entities.Entity;
 import nschultz.game.ui.GameCanvas;
+
+import java.util.Objects;
 
 public final class HomingEnemy extends Enemy {
 
-    private Player player;
+    private final Entity target;
     private double followingPower = 0.01;
 
     private final Image image;
 
-    public HomingEnemy(final Point2D position, final GameCanvas game) {
+    public HomingEnemy(final Point2D position, final GameCanvas game,
+                       final Entity target) {
+
         super(position, new Dimension2D(32, 32), game);
-
-        game.entities().stream()
-                .filter(entity -> entity instanceof Player)
-                .forEach(entity -> player = (Player) entity);
-
+        this.target = Objects.requireNonNull(target);
         image = new Image(
                 getClass().getResource("/homing_enemy.png").toExternalForm()
         );
@@ -29,13 +29,13 @@ public final class HomingEnemy extends Enemy {
     @Override
     public void update(final long now) {
         super.update(now);
-        followPlayer();
+        followTarget();
         followingPower += 0.0001;
     }
 
-    private void followPlayer() {
-        final double diffX = player.xPosition() - xPosition();
-        final double diffY = player.yPosition() - yPosition();
+    private void followTarget() {
+        final double diffX = target.xPosition() - xPosition();
+        final double diffY = target.yPosition() - yPosition();
         // interpolation
         moveToX(xPosition() + diffX * followingPower);
         moveToY(yPosition() + diffY * followingPower);
