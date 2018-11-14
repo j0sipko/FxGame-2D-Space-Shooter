@@ -57,7 +57,7 @@ public final class VictoryState extends GameState {
         brush.setFont(Font.font(56));
         brush.fillText("You won, Congratulations!", w / 2, h / 3);
         brush.setFont(Font.font(48));
-        brush.fillText("Your total is score: " + game().score(), w / 2, h / 2);
+        brush.fillText("Your total score is: " + game().score(), w / 2, h / 2);
         brush.setTextAlign(TextAlignment.LEFT);
         brush.setTextBaseline(VPos.BASELINE);
     }
