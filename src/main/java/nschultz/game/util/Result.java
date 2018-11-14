@@ -23,47 +23,18 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.states;
+package nschultz.game.util;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
-import nschultz.game.ui.GameCanvas;
-import nschultz.game.util.HasPlayerDied;
-import nschultz.game.util.IsLevelCompleted;
+/**
+ * A more object oriented alternative to the {@link java.util.function.Supplier}
+ * interface.
+ * Every object which is a representation of a result/computation should
+ * implement this interface.
+ *
+ * @param <T> the type of the result value
+ */
+public interface Result<T> {
 
-public abstract class GameState {
+    T value();
 
-    private final GameCanvas game;
-
-    public GameState(final GameCanvas game) {
-        this.game = game;
-    }
-
-    public abstract void update(final long now);
-
-    public abstract void render(final GraphicsContext brush, final long now);
-
-    /**
-     * Override when needed.
-     * We do not use game loop for that; reason:
-     * KeyEvents can be event driven for better performance.
-     *
-     * @param event     the event
-     * @param isPressed whether the key is pressed or not
-     */
-    public void onKeyInput(final KeyEvent event, final boolean isPressed) {
-    }
-
-    public final GameCanvas game() {
-        return game;
-    }
-
-
-    public final boolean hasPlayerDied() {
-        return new HasPlayerDied(game().entities()).value();
-    }
-
-    public final boolean isLevelCompleted() {
-        return new IsLevelCompleted(game().entities()).value();
-    }
 }

@@ -33,7 +33,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import nschultz.game.states.levels.Level14State;
 import nschultz.game.states.levels.Level1State;
+import nschultz.game.states.levels.Level8State;
 import nschultz.game.states.settings.SettingsState;
 import nschultz.game.ui.GameCanvas;
 

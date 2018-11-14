@@ -34,6 +34,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.IsWhitePixelColor;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;
@@ -97,17 +98,13 @@ public final class ChargingEnemy extends Enemy {
                 for (int x = 0; x < 32; x++) {
                     for (int y = 0; y < 32; y++) {
                         final Color c = reader.getColor(x, y);
-                        if (isWhiteColor(c)) {
+                        if (new IsWhitePixelColor(c).value()) {
                             writer.setColor(x, y, color);
                         }
                     }
                 }
             }
         }
-    }
-
-    private boolean isWhiteColor(final Color c) {
-        return c.getRed() == 1 && c.getGreen() == 1 && c.getBlue() == 1;
     }
 
     private void killIfOutOfBounds() {

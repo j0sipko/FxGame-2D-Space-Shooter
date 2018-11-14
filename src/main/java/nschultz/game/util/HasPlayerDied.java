@@ -23,47 +23,24 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.states;
+package nschultz.game.util;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
-import nschultz.game.ui.GameCanvas;
-import nschultz.game.util.HasPlayerDied;
-import nschultz.game.util.IsLevelCompleted;
+import nschultz.game.entities.Entity;
+import nschultz.game.entities.Player;
 
-public abstract class GameState {
+import java.util.List;
+import java.util.Objects;
 
-    private final GameCanvas game;
+public final class HasPlayerDied implements Result<Boolean> {
 
-    public GameState(final GameCanvas game) {
-        this.game = game;
+    private final List<Entity> entities;
+
+    public HasPlayerDied(final List<Entity> entities) {
+        this.entities = Objects.requireNonNull(entities);
     }
 
-    public abstract void update(final long now);
-
-    public abstract void render(final GraphicsContext brush, final long now);
-
-    /**
-     * Override when needed.
-     * We do not use game loop for that; reason:
-     * KeyEvents can be event driven for better performance.
-     *
-     * @param event     the event
-     * @param isPressed whether the key is pressed or not
-     */
-    public void onKeyInput(final KeyEvent event, final boolean isPressed) {
-    }
-
-    public final GameCanvas game() {
-        return game;
-    }
-
-
-    public final boolean hasPlayerDied() {
-        return new HasPlayerDied(game().entities()).value();
-    }
-
-    public final boolean isLevelCompleted() {
-        return new IsLevelCompleted(game().entities()).value();
+    @Override
+    public Boolean value() {
+        return entities.stream().noneMatch(entity -> entity instanceof Player);
     }
 }
