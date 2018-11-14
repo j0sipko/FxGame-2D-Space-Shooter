@@ -190,8 +190,7 @@ public final class GameCanvas extends Canvas {
 
     private void renderFPSCounter() {
         brush.setFont(Font.font(14));
-        brush.setFill(pulseSystem.fps() >= pulseSystem.FPS_CAP ?
-                Color.YELLOW : Color.RED);
+        brush.setFill(pulseSystem.isLagging() ? Color.RED : Color.YELLOW);
         brush.fillText("FPS/UPS: " + pulseSystem.fps(), 32, 32);
     }
 

@@ -37,7 +37,6 @@ public final class GamePulseSystem extends AnimationTimer {
             1, TimeUnit.SECONDS
     );
     private final GameCanvas game;
-    public final int FPS_CAP = 60;
     private int fps;
     private int frames;
     private boolean isRunning;
@@ -78,5 +77,9 @@ public final class GamePulseSystem extends AnimationTimer {
 
     public int fps() {
         return fps;
+    }
+
+    public boolean isLagging() {
+        return fps() < 60;
     }
 }
