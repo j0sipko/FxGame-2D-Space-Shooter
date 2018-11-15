@@ -36,7 +36,7 @@ public final class GameApp extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
-        if (!Files.exists(Highscore.PATH)) {
+        if (Files.notExists(Highscore.PATH)) {
             new Highscore().save(0);
         }
         new GameStage(primaryStage).show();
