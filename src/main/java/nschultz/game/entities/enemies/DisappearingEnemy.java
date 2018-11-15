@@ -57,7 +57,7 @@ public final class DisappearingEnemy extends Enemy {
 
         alpha -= delta;
         if (alpha <= 0 || alpha >= 1)
-            delta = new NumberNegation(delta).doubleValue();
+            delta = new NumberNegation(delta).value();
     }
 
     private void killIfOutOfBounds() {

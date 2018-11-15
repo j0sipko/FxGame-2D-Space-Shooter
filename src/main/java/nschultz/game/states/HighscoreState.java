@@ -35,7 +35,7 @@ public class HighscoreState extends GameState {
     public void update(final long now) {
         alpha -= delta;
         if (alpha <= 0.4 || alpha >= 1) {
-            delta = new NumberNegation(delta).doubleValue();
+            delta = new NumberNegation(delta).value();
         }
     }
 

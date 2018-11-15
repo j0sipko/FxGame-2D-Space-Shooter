@@ -59,9 +59,9 @@ public final class GrowingEnemy extends Enemy {
         final double maxWidth = 128;
         final double maxHeight = 128;
         if (width() >= maxWidth)
-            wDelta = new NumberNegation(wDelta).doubleValue();
+            wDelta = new NumberNegation(wDelta).value();
         if (height() >= maxHeight)
-            hDelta = new NumberNegation(hDelta).doubleValue();
+            hDelta = new NumberNegation(hDelta).value();
 
         grow(new Dimension2D(width() + wDelta, height() + hDelta));
 

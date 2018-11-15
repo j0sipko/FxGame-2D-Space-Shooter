@@ -63,11 +63,11 @@ public final class StoppingEnemy extends Enemy {
         if (!stop) {
             velocity -= delta;
             if (velocity <= 0) {
-                delta = new NumberNegation(delta).doubleValue();
+                delta = new NumberNegation(delta).value();
                 stop = true;
             }
             if (velocity >= startingVelocity) {
-                delta = new NumberNegation(delta).doubleValue();
+                delta = new NumberNegation(delta).value();
             }
             moveLeft(velocity);
         } else {

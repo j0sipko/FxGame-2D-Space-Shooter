@@ -25,7 +25,7 @@
  */
 package nschultz.game.util;
 
-public final class NumberNegation {
+public final class NumberNegation implements Result<Double> {
 
     private final Number number;
 
@@ -33,9 +33,7 @@ public final class NumberNegation {
         this.number = number;
     }
 
-    public double doubleValue() {
-        double result = number.doubleValue();
-        result *= -1;
-        return result;
+    public Double value() {
+        return number.doubleValue() * -1;
     }
 }

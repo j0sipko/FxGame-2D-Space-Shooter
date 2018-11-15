@@ -62,7 +62,7 @@ public final class ReturningEnemy extends Enemy {
             killIfOutOfBounds();
         }
         if (xPosition() <= 0) {
-            velocity = new NumberNegation(velocity).doubleValue();
+            velocity = new NumberNegation(velocity).value();
             returnedOnce = true;
         }
     }

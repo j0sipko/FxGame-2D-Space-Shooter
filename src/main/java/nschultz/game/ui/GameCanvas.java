@@ -151,7 +151,7 @@ public final class GameCanvas extends Canvas {
                 fadedIn = true;
             }
             if (fadedIn) {
-                delta = new NumberNegation(delta).doubleValue();
+                delta = new NumberNegation(delta).value();
                 fadedIn = false;
             }
 
