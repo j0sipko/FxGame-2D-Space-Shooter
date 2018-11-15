@@ -33,12 +33,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.Highscore;
+import nschultz.game.util.IsNewHighscore;
 
 public final class GameOverState extends GameState {
 
     public GameOverState(final GameCanvas game) {
         super(game);
         game().entities().clear();
+        if (new IsNewHighscore(game).value()) {
+            new Highscore().save(game.score());
+        }
     }
 
     @Override
@@ -60,11 +65,16 @@ public final class GameOverState extends GameState {
         brush.setFont(Font.font(64));
         final int maxWidth = 512;
         brush.fillText("Game Over!", w / 2, h / 2, maxWidth);
-
+        brush.setFont(Font.font(48));
         brush.setEffect(null);
-        brush.setFont(Font.font(32));
         brush.setFill(Color.ORANGE);
-        brush.fillText("Press ENTER to continue", w / 2, h / 1.5, maxWidth);
+        brush.fillText("You reached a score of " + game().score(),
+                w / 2, h / 1.5, maxWidth
+        );
+
+        brush.setFill(Color.GRAY);
+        brush.setFont(Font.font(32));
+        brush.fillText("Press ENTER to continue", w / 2, h / 1.25, maxWidth);
         brush.setTextBaseline(VPos.BASELINE);
         brush.setTextAlign(TextAlignment.LEFT);
     }

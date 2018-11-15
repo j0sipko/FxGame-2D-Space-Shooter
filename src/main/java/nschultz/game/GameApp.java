@@ -28,11 +28,17 @@ package nschultz.game;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nschultz.game.ui.GameStage;
+import nschultz.game.util.Highscore;
+
+import java.nio.file.Files;
 
 public final class GameApp extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
+        if (!Files.exists(Highscore.PATH)) {
+            new Highscore().save(0);
+        }
         new GameStage(primaryStage).show();
     }
 

@@ -41,14 +41,16 @@ public final class MenuState extends GameState {
 
     private final String[] options = new String[]{
             "New game",
+            "Highscore",
             "Settings",
             "Credits",
             "Exit"
     };
 
     private static final int START_INDEX = 0;
-    private static final int SETTINGS_INDEX = 1;
-    private static final int CREDITS_STATE = 2;
+    private static final int HIGHSCORE_INDEX = 1;
+    private static final int SETTINGS_INDEX = 2;
+    private static final int CREDITS_STATE = 3;
     private int currentIndex = 0;
 
     public MenuState(final GameCanvas game) {
@@ -109,6 +111,8 @@ public final class MenuState extends GameState {
                 case ENTER:
                     if (currentIndex == START_INDEX) {
                         game().switchGameState(new Level1State(game()));
+                    } else if (currentIndex == HIGHSCORE_INDEX) {
+                        game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {
                         game().switchGameState(new SettingsState(game()));
                     } else if (currentIndex == CREDITS_STATE) {

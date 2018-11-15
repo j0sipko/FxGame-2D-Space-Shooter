@@ -101,7 +101,8 @@ public final class GameCanvas extends Canvas {
                 !(state instanceof GameOverState) &&
                 !(state instanceof SettingsState) &&
                 !(state instanceof VideoSettingsState) &&
-                !(state instanceof CreditsState);
+                !(state instanceof CreditsState) &&
+                !(state instanceof HighscoreState);
     }
 
     void startPulseSystem() {
