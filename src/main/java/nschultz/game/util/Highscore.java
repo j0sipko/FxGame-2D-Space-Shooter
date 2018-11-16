@@ -38,9 +38,9 @@ public final class Highscore {
             System.getProperty("user.dir") + File.separator + "highscore.txt"
     );
 
-    public void save(final int data) {
+    public void save(final int score) {
         try {
-            final byte[] bytes = Integer.toBinaryString(data).getBytes(
+            final byte[] bytes = Integer.toBinaryString(score).getBytes(
                     StandardCharsets.UTF_8
             );
             Files.write(PATH, bytes);

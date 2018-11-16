@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public final class ErrorLog implements Log {
 
-    private String error;
+    private final String error;
 
     ErrorLog(final String error) {
         this.error = Objects.requireNonNull(error);
