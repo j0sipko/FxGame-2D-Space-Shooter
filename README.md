@@ -1,5 +1,5 @@
 # FxGame-2D-Space-Shooter
-A 2D space game game written in pure Java/FX (Java 11).
+A 2D space game written in pure Java/FX (Java 11).
 
 ![](images/FxShooter%20Title%20Screen.PNG)
 
