@@ -118,12 +118,16 @@ public final class MenuState extends GameState {
                         game().switchGameState(new Level1State(game()));
                         new SoundFile("/start.wav").play();
                     } else if (currentIndex == HIGHSCORE_INDEX) {
+                        new SoundFile("/selection.wav").play();
                         game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {
+                        new SoundFile("/selection.wav").play();
                         game().switchGameState(new SettingsState(game()));
                     } else if (currentIndex == CREDITS_STATE) {
+                        new SoundFile("/selection.wav").play();
                         game().switchGameState(new CreditsState(game()));
                     } else {
+                        new SoundFile("/selection.wav").play();
                         Platform.exit();
                     }
                     break;

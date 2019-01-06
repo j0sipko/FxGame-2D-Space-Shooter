@@ -114,6 +114,7 @@ public final class SettingsState extends GameState {
                     }
                     break;
                 case ENTER:
+                    new SoundFile("/selection.wav").play();
                     if (currentIndex == VIDEO_OPTION_INDEX) {
                         game().switchGameState(new VideoSettingsState(game()));
                     } else if (currentIndex == BACK_INDEX) {

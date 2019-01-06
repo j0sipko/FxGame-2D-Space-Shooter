@@ -129,6 +129,7 @@ public final class VideoSettingsState extends GameState {
                     }
                     break;
                 case ENTER:
+                    new SoundFile("/selection.wav").play();
                     if (currentIndex == 0) {
                         gameWindow.setFullScreen(!gameWindow.isFullScreen());
                         final boolean isFullScreenNow = gameWindow.isFullScreen();
