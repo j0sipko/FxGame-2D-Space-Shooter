@@ -2,7 +2,7 @@
  *
  * The MIT License
  *
- * Copyright 2018 Niklas Schultz.
+ * Copyright 2019 Niklas Schultz.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ public class CreditsState extends GameState {
     private static final String NEW_LINE = System.lineSeparator();
     private static final String MIT_LICENSE = "The MIT License" + NEW_LINE +
             NEW_LINE +
-            "      Copyright 2018 Niklas Schultz." + NEW_LINE +
+            "      Copyright 2019 Niklas Schultz." + NEW_LINE +
             NEW_LINE +
             "      Permission is hereby granted, free of charge, to any person obtaining a copy" + NEW_LINE +
             "      of this software and associated documentation files (the \"Software\"), to deal" + NEW_LINE +
