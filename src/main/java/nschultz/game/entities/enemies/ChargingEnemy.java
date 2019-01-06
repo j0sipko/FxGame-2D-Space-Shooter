@@ -35,7 +35,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.IsWhitePixelColor;
-import nschultz.game.util.SpriteSheet;
+import nschultz.game.io.SpriteSheet;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;

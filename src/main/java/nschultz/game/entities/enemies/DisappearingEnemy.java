@@ -31,7 +31,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
-import nschultz.game.util.SpriteSheet;
+import nschultz.game.io.SpriteSheet;
 
 public final class DisappearingEnemy extends Enemy {
 

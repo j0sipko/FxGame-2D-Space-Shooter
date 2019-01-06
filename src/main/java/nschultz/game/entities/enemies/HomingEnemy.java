@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.entities.Entity;
 import nschultz.game.ui.GameCanvas;
-import nschultz.game.util.SpriteSheet;
+import nschultz.game.io.SpriteSheet;
 
 import java.util.Objects;
 

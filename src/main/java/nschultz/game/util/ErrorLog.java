@@ -33,7 +33,7 @@ public final class ErrorLog implements Log {
 
     private final String error;
 
-    ErrorLog(final String error) {
+    public ErrorLog(final String error) {
         this.error = Objects.requireNonNull(error);
     }
 

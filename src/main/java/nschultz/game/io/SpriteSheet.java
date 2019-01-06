@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game.util;
+package nschultz.game.io;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
