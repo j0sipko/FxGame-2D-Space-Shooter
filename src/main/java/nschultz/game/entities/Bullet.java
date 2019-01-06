@@ -31,6 +31,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.paint.Color;
 import nschultz.game.entities.enemies.Enemy;
+import nschultz.game.io.SoundFile;
 import nschultz.game.ui.AlphaParticle;
 import nschultz.game.ui.GameCanvas;
 
@@ -69,6 +70,7 @@ public final class Bullet extends Entity {
 
                         kill();
                         enemy.kill();
+                        new SoundFile("/crash.wav").play();
                         game.increaseScore();
 
                         if (game.particlesActive()) {
