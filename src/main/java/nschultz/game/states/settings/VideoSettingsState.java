@@ -35,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import nschultz.game.entities.Player;
+import nschultz.game.io.SoundFile;
 import nschultz.game.states.GameState;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.ui.LightFromEast;
@@ -114,14 +115,18 @@ public final class VideoSettingsState extends GameState {
                 case W:
                     if (currentIndex <= 0)
                         currentIndex = 0;
-                    else
+                    else {
+                        new SoundFile("/select.wav").play();
                         currentIndex--;
+                    }
                     break;
                 case S:
-                    if (currentIndex >= 3)
+                    if (currentIndex >= 3) {
                         currentIndex = 3;
-                    else
+                    } else {
+                        new SoundFile("/select.wav").play();
                         currentIndex++;
+                    }
                     break;
                 case ENTER:
                     if (currentIndex == 0) {

@@ -32,6 +32,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import nschultz.game.io.SoundFile;
 import nschultz.game.states.GameState;
 import nschultz.game.states.MenuState;
 import nschultz.game.ui.GameCanvas;
@@ -99,14 +100,18 @@ public final class SettingsState extends GameState {
                 case W:
                     if (currentIndex <= 0)
                         currentIndex = 0;
-                    else
+                    else {
+                        new SoundFile("/select.wav").play();
                         currentIndex--;
+                    }
                     break;
                 case S:
                     if (currentIndex >= 1)
                         currentIndex = 1;
-                    else
+                    else {
+                        new SoundFile("/select.wav").play();
                         currentIndex++;
+                    }
                     break;
                 case ENTER:
                     if (currentIndex == VIDEO_OPTION_INDEX) {

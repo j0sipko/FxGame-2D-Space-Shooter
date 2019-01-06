@@ -100,14 +100,18 @@ public final class MenuState extends GameState {
                 case W:
                     if (currentIndex <= 0)
                         currentIndex = 0;
-                    else
+                    else {
+                        new SoundFile("/select.wav").play();
                         currentIndex--;
+                    }
                     break;
                 case S:
                     if (currentIndex >= options.length - 1)
                         currentIndex = options.length - 1;
-                    else
+                    else {
+                        new SoundFile("/select.wav").play();
                         currentIndex++;
+                    }
                     break;
                 case ENTER:
                     if (currentIndex == START_INDEX) {
