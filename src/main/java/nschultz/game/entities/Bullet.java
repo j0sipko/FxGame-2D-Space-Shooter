@@ -70,7 +70,7 @@ public final class Bullet extends Entity {
 
                         kill();
                         enemy.kill();
-                        new SoundFile("/crash.wav").play();
+                        new SoundFile("/sounds/crash.wav").play();
                         game.increaseScore();
 
                         if (game.particlesActive()) {

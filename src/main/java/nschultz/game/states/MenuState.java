@@ -101,7 +101,7 @@ public final class MenuState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        new SoundFile("/select.wav").play();
+                        new SoundFile("/sounds/select.wav").play();
                         currentIndex--;
                     }
                     break;
@@ -109,25 +109,25 @@ public final class MenuState extends GameState {
                     if (currentIndex >= options.length - 1)
                         currentIndex = options.length - 1;
                     else {
-                        new SoundFile("/select.wav").play();
+                        new SoundFile("/sounds/select.wav").play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
                     if (currentIndex == START_INDEX) {
                         game().switchGameState(new Level1State(game()));
-                        new SoundFile("/start.wav").play();
+                        new SoundFile("/sounds/start.wav").play();
                     } else if (currentIndex == HIGHSCORE_INDEX) {
-                        new SoundFile("/selection.wav").play();
+                        new SoundFile("/sounds/selection.wav").play();
                         game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {
-                        new SoundFile("/selection.wav").play();
+                        new SoundFile("/sounds/selection.wav").play();
                         game().switchGameState(new SettingsState(game()));
                     } else if (currentIndex == CREDITS_STATE) {
-                        new SoundFile("/selection.wav").play();
+                        new SoundFile("/sounds/selection.wav").play();
                         game().switchGameState(new CreditsState(game()));
                     } else {
-                        new SoundFile("/selection.wav").play();
+                        new SoundFile("/sounds/selection.wav").play();
                         Platform.exit();
                     }
                     break;

@@ -108,7 +108,7 @@ public final class Player extends Entity {
                                 xPosition() + (width() / 2),
                                 yPosition() + (height() / 2)), game)
                 );
-                new SoundFile("/shot.wav").play();
+                new SoundFile("/sounds/shot.wav").play();
             });
         }
     }

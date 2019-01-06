@@ -31,7 +31,7 @@ import javafx.scene.image.WritableImage;
 public final class SpriteSheet {
 
     private static final SpriteSheet sheet = new SpriteSheet(new Image(
-            SpriteSheet.class.getResource("/spritesheet.png").toExternalForm())
+            SpriteSheet.class.getResource("/images/spritesheet.png").toExternalForm())
     );
 
     public static SpriteSheet instance() {

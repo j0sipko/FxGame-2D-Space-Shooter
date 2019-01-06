@@ -101,7 +101,7 @@ public final class SettingsState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        new SoundFile("/select.wav").play();
+                        new SoundFile("/sounds/select.wav").play();
                         currentIndex--;
                     }
                     break;
@@ -109,12 +109,12 @@ public final class SettingsState extends GameState {
                     if (currentIndex >= 1)
                         currentIndex = 1;
                     else {
-                        new SoundFile("/select.wav").play();
+                        new SoundFile("/sounds/select.wav").play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
-                    new SoundFile("/selection.wav").play();
+                    new SoundFile("/sounds/selection.wav").play();
                     if (currentIndex == VIDEO_OPTION_INDEX) {
                         game().switchGameState(new VideoSettingsState(game()));
                     } else if (currentIndex == BACK_INDEX) {
