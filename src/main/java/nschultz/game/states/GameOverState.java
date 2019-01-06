@@ -64,17 +64,17 @@ public final class GameOverState extends GameState {
         brush.setFill(Color.RED);
         brush.setFont(Font.font(64));
         final int maxWidth = 512;
-        brush.fillText("Game Over!", w / 2, h / 4, maxWidth);
+        brush.fillText("Game Over!", w / 2, h / 3.5, maxWidth);
         brush.setFont(Font.font(48));
         brush.setEffect(null);
         brush.setFill(Color.ORANGE);
         brush.fillText("You reached a score of " + game().score(),
-                w / 2, h / 2.5, maxWidth
+                w / 2, h / 2, maxWidth
         );
 
         brush.setFill(Color.GRAY);
         brush.setFont(Font.font(32));
-        brush.fillText("Press ENTER to continue", w / 2, h / 2, maxWidth);
+        brush.fillText("Press ENTER to continue", w / 2, h / 1.75, maxWidth);
         brush.setTextBaseline(VPos.BASELINE);
         brush.setTextAlign(TextAlignment.LEFT);
     }
