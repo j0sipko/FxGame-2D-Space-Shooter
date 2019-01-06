@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import nschultz.game.io.SoundFile;
 import nschultz.game.states.levels.Level1State;
 import nschultz.game.states.settings.SettingsState;
 import nschultz.game.ui.GameCanvas;
@@ -111,6 +112,7 @@ public final class MenuState extends GameState {
                 case ENTER:
                     if (currentIndex == START_INDEX) {
                         game().switchGameState(new Level1State(game()));
+                        new SoundFile("/start.wav").play();
                     } else if (currentIndex == HIGHSCORE_INDEX) {
                         game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {

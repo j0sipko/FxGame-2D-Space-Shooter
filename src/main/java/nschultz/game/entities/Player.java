@@ -31,15 +31,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import nschultz.game.io.SoundFile;
 import nschultz.game.io.SpriteSheet;
 import nschultz.game.ui.AlphaParticle;
 import nschultz.game.ui.GameCanvas;
-import nschultz.game.util.ErrorLog;
 import nschultz.game.util.TimeDelayedProcedure;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineEvent;
-import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -111,21 +108,7 @@ public final class Player extends Entity {
                                 xPosition() + (width() / 2),
                                 yPosition() + (height() / 2)), game)
                 );
-                try {
-                    final var clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(
-                            new BufferedInputStream(
-                                    getClass().getResourceAsStream("/shot.wav")))
-                    );
-                    clip.start();
-                    clip.addLineListener(event -> {
-                        if (event.getType() == LineEvent.Type.STOP) {
-                            clip.close();
-                        }
-                    });
-                } catch (final Exception ex) {
-                    new ErrorLog(ex.toString()).log();
-                }
+                new SoundFile("/shot.wav").play();
             });
         }
     }
