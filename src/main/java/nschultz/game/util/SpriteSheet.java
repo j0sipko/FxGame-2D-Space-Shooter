@@ -23,26 +23,35 @@
  * THE SOFTWARE.
  *
  */
-package nschultz.game;
+package nschultz.game.util;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import nschultz.game.ui.GameWindow;
-import nschultz.game.util.Highscore;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
-import java.nio.file.Files;
+public final class SpriteSheet {
 
-public final class GameApp extends Application {
+    private static final SpriteSheet sheet = new SpriteSheet(new Image(
+            SpriteSheet.class.getResource("/spritesheet.png").toExternalForm())
+    );
 
-    @Override
-    public void start(final Stage primaryStage) {
-        if (Files.notExists(Highscore.PATH)) {
-            new Highscore().save(0);
-        }
-        new GameWindow(primaryStage).show();
+    public static SpriteSheet instance() {
+        return sheet;
     }
 
-    public static void main(final String[] args) {
-        launch(args);
+    private final Image spriteSheet;
+
+    private SpriteSheet(final Image spriteSheet) {
+        this.spriteSheet = spriteSheet;
+    }
+
+    public Image sprite(final int row, final int col,
+                        final int width, final int height) {
+        return new WritableImage(
+                spriteSheet.getPixelReader(),
+                (height * col) - height,
+                (width * row) - width,
+                width,
+                height
+        );
     }
 }

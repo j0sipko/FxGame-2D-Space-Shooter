@@ -35,6 +35,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.IsWhitePixelColor;
+import nschultz.game.util.SpriteSheet;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.Random;
@@ -42,8 +43,11 @@ import java.util.concurrent.TimeUnit;
 
 public final class ChargingEnemy extends Enemy {
 
-    private final double initialXPositionCapture;
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            1, 2, 32, 32
+    );
 
+    private final double initialXPositionCapture;
     private final double chargingVelocity;
     private Color color = new Color(1, 1, 1, 1);
     private boolean steppedOut = false;
@@ -64,9 +68,8 @@ public final class ChargingEnemy extends Enemy {
         movingAmountBeforeCharging = rng.nextInt(128) + 64;
         initialXPositionCapture = xPosition();
 
-        final Image source = new Image(getClass().getResource("/charging enemy.png").toExternalForm());
-        reader = source.getPixelReader();
-        image = new WritableImage(source.getPixelReader(), 32, 32);
+        reader = sprite.getPixelReader();
+        image = new WritableImage(sprite.getPixelReader(), 32, 32);
         writer = image.getPixelWriter();
     }
 

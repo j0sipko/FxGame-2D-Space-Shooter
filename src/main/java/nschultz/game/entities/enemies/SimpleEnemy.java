@@ -30,27 +30,34 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.SpriteSheet;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.concurrent.TimeUnit;
 
 public final class SimpleEnemy extends Enemy {
 
-    private final double velocity;
+    private static final Image sprite1 = SpriteSheet.instance().sprite(
+            1, 1, 16, 16
+    );
+
+    private static final Image sprite2 = SpriteSheet.instance().sprite(
+            1, 2, 16, 16
+    );
+
     private final Image[] image = new Image[2];
     private final TimeDelayedProcedure imageDelay = new TimeDelayedProcedure(
             800, TimeUnit.MILLISECONDS
     );
     private int imageIndex = 0;
+    private final double velocity;
 
     public SimpleEnemy(final Point2D position, final double velocity,
                        final GameCanvas game) {
-
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
-
-        image[0] = new Image(getClass().getResource("/enemy_animation1.png").toExternalForm());
-        image[1] = new Image(getClass().getResource("/enemy_animation2.png").toExternalForm());
+        image[0] = sprite1;
+        image[1] = sprite2;
     }
 
     @Override
@@ -75,6 +82,8 @@ public final class SimpleEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image[imageIndex], xPosition(), yPosition(), width(), height());
+        brush.drawImage(
+                image[imageIndex], xPosition(), yPosition(), width(), height()
+        );
     }
 }

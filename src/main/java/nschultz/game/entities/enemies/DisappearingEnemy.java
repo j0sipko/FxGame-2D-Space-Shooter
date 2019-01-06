@@ -31,22 +31,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
+import nschultz.game.util.SpriteSheet;
 
 public final class DisappearingEnemy extends Enemy {
 
-    private final double velocity;
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            3, 1, 16, 16
+    );
 
+    private final double velocity;
     private double alpha = 1.0;
     private double delta = 0.01;
-
-    private final Image image;
 
     public DisappearingEnemy(final Point2D position, final double velocity,
                              final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
-        image = new Image(getClass().getResource("/disappearing enemy.png").toExternalForm());
     }
 
     @Override
@@ -68,7 +69,7 @@ public final class DisappearingEnemy extends Enemy {
     @Override
     public void render(final GraphicsContext brush, final long now) {
         brush.setGlobalAlpha(alpha);
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
 
         brush.setGlobalAlpha(1);
     }

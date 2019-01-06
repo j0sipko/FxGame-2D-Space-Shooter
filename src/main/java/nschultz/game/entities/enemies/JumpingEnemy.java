@@ -30,16 +30,18 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.SpriteSheet;
 
 public final class JumpingEnemy extends Enemy {
 
-    private double angle = 0;
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            4, 1, 16, 16
+    );
 
-    private final Image image;
+    private double angle = 0;
 
     public JumpingEnemy(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(8, 8), game);
-        image = new Image(getClass().getResource("/jumping enemy.png").toExternalForm());
     }
 
     @Override
@@ -58,6 +60,6 @@ public final class JumpingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
     }
 }

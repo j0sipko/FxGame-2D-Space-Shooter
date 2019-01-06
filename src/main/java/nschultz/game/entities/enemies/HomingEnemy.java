@@ -6,24 +6,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.entities.Entity;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.SpriteSheet;
 
 import java.util.Objects;
 
 public final class HomingEnemy extends Enemy {
 
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            3, 2, 16, 16
+    );
+
     private final Entity target;
     private double followingPower = 0.01;
-
-    private final Image image;
 
     public HomingEnemy(final Point2D position, final GameCanvas game,
                        final Entity target) {
 
         super(position, new Dimension2D(32, 32), game);
         this.target = Objects.requireNonNull(target);
-        image = new Image(
-                getClass().getResource("/homing_enemy.png").toExternalForm()
-        );
     }
 
     @Override
@@ -43,6 +43,6 @@ public final class HomingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
     }
 }

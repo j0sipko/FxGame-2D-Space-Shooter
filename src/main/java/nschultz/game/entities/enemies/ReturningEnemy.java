@@ -31,14 +31,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
+import nschultz.game.util.SpriteSheet;
 
 public final class ReturningEnemy extends Enemy {
+
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            2, 2, 16, 16
+    );
 
     private final GameCanvas game;
     private double velocity;
     private boolean returnedOnce = false;
-
-    private final Image image;
 
     public ReturningEnemy(final Point2D position, final double velocity,
                           final GameCanvas game) {
@@ -46,8 +49,6 @@ public final class ReturningEnemy extends Enemy {
         super(position, new Dimension2D(16, 16), game);
         this.game = game;
         this.velocity = velocity;
-
-        image = new Image(getClass().getResource("/returning enemy.png").toExternalForm());
     }
 
     @Override
@@ -75,6 +76,6 @@ public final class ReturningEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
     }
 }

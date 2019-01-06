@@ -31,11 +31,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
+import nschultz.game.util.SpriteSheet;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.concurrent.TimeUnit;
 
 public final class StoppingEnemy extends Enemy {
+
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            2, 1, 16, 16
+    );
 
     private final double startingVelocity;
     private double velocity;
@@ -44,15 +49,12 @@ public final class StoppingEnemy extends Enemy {
     private final TimeDelayedProcedure stoppingDelay =
             new TimeDelayedProcedure(5, TimeUnit.SECONDS);
 
-    private final Image image;
-
     public StoppingEnemy(final Point2D position, final double velocity,
                          final GameCanvas game) {
 
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
         this.startingVelocity = velocity;
-        image = new Image(getClass().getResource("/stopping enemy.png").toExternalForm());
     }
 
     @Override
@@ -82,6 +84,6 @@ public final class StoppingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
     }
 }

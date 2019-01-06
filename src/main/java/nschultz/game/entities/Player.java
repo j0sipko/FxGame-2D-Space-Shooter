@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import nschultz.game.ui.AlphaParticle;
 import nschultz.game.ui.GameCanvas;
+import nschultz.game.util.SpriteSheet;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.ArrayList;
@@ -41,6 +42,14 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public final class Player extends Entity {
+
+    private static final Image sprite1 = SpriteSheet.instance().sprite(
+            2, 1, 64, 32
+    );
+
+    private static final Image sprite2 = SpriteSheet.instance().sprite(
+            3, 1, 64, 32
+    );
 
     private final GameCanvas game;
     private final double velocity = 8;
@@ -67,8 +76,8 @@ public final class Player extends Entity {
     public Player(final Point2D position, final GameCanvas game) {
         super(position, new Dimension2D(64, 32), game);
         this.game = game;
-        image[0] = new Image(getClass().getResource("/player_animation1.png").toExternalForm());
-        image[1] = new Image(getClass().getResource("/player_animation2.png").toExternalForm());
+        image[0] = sprite1;
+        image[1] = sprite2;
     }
 
     @Override

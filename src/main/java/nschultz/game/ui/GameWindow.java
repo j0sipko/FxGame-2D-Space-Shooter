@@ -30,8 +30,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import nschultz.game.util.SpriteSheet;
 
-public final class GameStage {
+public final class GameWindow {
 
     // consider the amount of pixels we move objects
     // e.g the bullets travel at x pixel per 0.016 seconds. Which means
@@ -39,7 +40,7 @@ public final class GameStage {
     private final Dimension2D resolution = new Dimension2D(1280, 800);
     private final Stage primaryStage;
 
-    public GameStage(final Stage primaryStage) {
+    public GameWindow(final Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
@@ -49,11 +50,13 @@ public final class GameStage {
 
         final GameCanvas canvas = new GameCanvas(resolution);
         final Scene scene = new Scene(new BorderPane(canvas));
-
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
 
-        primaryStage.setTitle("FxSpace shooter v0.1.0");
+        primaryStage.getIcons().add(
+                SpriteSheet.instance().sprite(1, 1, 16, 16)
+        );
+        primaryStage.setTitle("FxSpace shooter v0.1.0 ALPHA");
         primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setWidth(resolution.getWidth());

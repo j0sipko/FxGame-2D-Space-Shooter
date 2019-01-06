@@ -31,22 +31,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.NumberNegation;
+import nschultz.game.util.SpriteSheet;
 
 public final class GrowingEnemy extends Enemy {
 
-    private double velocity;
+    private static final Image sprite = SpriteSheet.instance().sprite(
+            1, 2, 64, 64
+    );
 
+    private double velocity;
     private double wDelta = 0.25;
     private double hDelta = 0.25;
-
-    private final Image image;
 
     public GrowingEnemy(final Point2D position, final double velocity,
                         final GameCanvas game) {
 
         super(position, new Dimension2D(8, 8), game);
         this.velocity = velocity;
-        image = new Image(getClass().getResource("/growing enemy.png").toExternalForm());
     }
 
 
@@ -76,6 +77,6 @@ public final class GrowingEnemy extends Enemy {
 
     @Override
     public void render(final GraphicsContext brush, final long now) {
-        brush.drawImage(image, xPosition(), yPosition(), width(), height());
+        brush.drawImage(sprite, xPosition(), yPosition(), width(), height());
     }
 }
