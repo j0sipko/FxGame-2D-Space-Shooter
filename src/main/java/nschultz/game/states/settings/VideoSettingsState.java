@@ -164,11 +164,11 @@ public final class VideoSettingsState extends GameState {
             final Player player = (Player) e;
             if (!player.isThrustParticlesActive()) {
                 player.enableThrustParticles();
-                game().enableStars();
+                game().enableParticles();
                 options[1] = "Disable particles";
             } else {
                 player.disableThrustParticles();
-                game().disableStars();
+                game().disableParticles();
                 options[1] = "Enable particles";
             }
         });

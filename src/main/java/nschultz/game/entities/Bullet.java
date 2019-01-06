@@ -31,7 +31,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.paint.Color;
 import nschultz.game.entities.enemies.Enemy;
+import nschultz.game.ui.AlphaParticle;
 import nschultz.game.ui.GameCanvas;
+
+import java.util.Random;
 
 public final class Bullet extends Entity {
 
@@ -67,6 +70,25 @@ public final class Bullet extends Entity {
                         kill();
                         enemy.kill();
                         game.increaseScore();
+
+                        if (game.particlesActive()) {
+                            final var rng = new Random();
+                            for (int i = 0; i < 16; i++) {
+                                double randomVelocityX = rng.nextDouble() * -8;
+                                double randomVelocityY;
+                                if (rng.nextDouble() < 0.5) {
+                                    randomVelocityY = rng.nextDouble() * 8;
+                                } else {
+                                    randomVelocityY = rng.nextDouble() * -8;
+                                }
+                                game.explosionParticles().add(new AlphaParticle(
+                                        enemy.xPosition(), enemy.yPosition(),
+                                        new Point2D(
+                                                randomVelocityX, randomVelocityY
+                                        ), Color.RED)
+                                );
+                            }
+                        }
                     }
                 });
     }

@@ -57,6 +57,7 @@ public final class GameCanvas extends Canvas {
     private final List<Entity> entities = new ArrayList<>();
     private final List<Entity> copyOfEntities = new ArrayList<>();
     private final List<MovingParticle> stars = new ArrayList<>();
+    private final List<AlphaParticle> explosionParticles = new ArrayList<>();
     private final Random starRandom = new Random(64);
     private final TimeDelayedProcedure starDelay = new TimeDelayedProcedure(
             250, TimeUnit.MILLISECONDS
@@ -72,7 +73,7 @@ public final class GameCanvas extends Canvas {
     private double startingWidth;
     private double startingHeight;
     private boolean shouldRenderLevelChange;
-    private boolean starsActive = false;
+    private boolean particlesActive = false;
 
     private double alpha = 0.0;
     private double delta = 0.009;
@@ -122,7 +123,7 @@ public final class GameCanvas extends Canvas {
         copyOfEntities.clear();
 
         currentGameState.update(now);
-        if (starsActive) {
+        if (particlesActive) {
             starDelay.runAfterDelayExact(now, () ->
                     stars.add(new MovingParticle(
                             startingWidth, starRandom.nextInt((int) startingHeight),
@@ -131,11 +132,14 @@ public final class GameCanvas extends Canvas {
         }
         stars.forEach(MovingParticle::update);
         stars.removeIf(MovingParticle::isDead);
+        explosionParticles.forEach(AlphaParticle::update);
+        explosionParticles.removeIf(AlphaParticle::isDead);
     }
 
     public void render(final long now) {
         currentGameState.render(brush, now);
         stars.forEach(particle -> particle.render(brush));
+        explosionParticles.forEach(particle -> particle.render(brush));
         if (isPlayableState(currentGameState.value())) {
             renderCurrentLevel();
             renderScore();
@@ -199,6 +203,10 @@ public final class GameCanvas extends Canvas {
 
     public List<Entity> entities() {
         return entities;
+    }
+
+    public List<AlphaParticle> explosionParticles() {
+        return explosionParticles;
     }
 
     public Player player() {
@@ -266,11 +274,15 @@ public final class GameCanvas extends Canvas {
         return score;
     }
 
-    public void disableStars() {
-        starsActive = false;
+    public void disableParticles() {
+        particlesActive = false;
     }
 
-    public void enableStars() {
-        starsActive = true;
+    public void enableParticles() {
+        particlesActive = true;
+    }
+
+    public boolean particlesActive() {
+        return particlesActive;
     }
 }
