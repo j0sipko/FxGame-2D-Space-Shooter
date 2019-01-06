@@ -28,6 +28,7 @@ package nschultz.game.io;
 import nschultz.game.util.ErrorLog;
 
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import java.io.BufferedInputStream;
 
@@ -46,12 +47,16 @@ public final class SoundFile {
                     new BufferedInputStream(
                             getClass().getResourceAsStream(resource)))
             );
-            clip.start();
             clip.addLineListener(e -> {
                 if (e.getType() == LineEvent.Type.STOP) {
                     clip.close();
                 }
             });
+            final FloatControl gainControl = (FloatControl) clip.getControl(
+                    FloatControl.Type.MASTER_GAIN
+            );
+            gainControl.setValue(-16);
+            clip.start();
         } catch (final Exception ex) {
             new ErrorLog(ex.toString()).log();
         }
