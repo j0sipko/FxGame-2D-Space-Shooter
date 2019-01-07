@@ -29,8 +29,8 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import nschultz.game.ui.GameCanvas;
 import nschultz.game.io.SpriteSheet;
+import nschultz.game.ui.GameCanvas;
 import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.concurrent.TimeUnit;
@@ -45,7 +45,7 @@ public final class SimpleEnemy extends Enemy {
             1, 2, 16, 16
     );
 
-    private final Image[] image = new Image[2];
+    private static final Image[] image = new Image[]{sprite1, sprite2};
     private final TimeDelayedProcedure imageDelay = new TimeDelayedProcedure(
             800, TimeUnit.MILLISECONDS
     );
@@ -56,8 +56,6 @@ public final class SimpleEnemy extends Enemy {
                        final GameCanvas game) {
         super(position, new Dimension2D(16, 16), game);
         this.velocity = velocity;
-        image[0] = sprite1;
-        image[1] = sprite2;
     }
 
     @Override
