@@ -44,6 +44,10 @@ import java.util.concurrent.TimeUnit;
 
 public final class Player extends Entity {
 
+    private static final SoundFile shootingSound = new SoundFile(
+            "/sounds/shot.wav"
+    );
+
     private static final Image sprite1 = SpriteSheet.instance().sprite(
             2, 1, 64, 32
     );
@@ -108,7 +112,7 @@ public final class Player extends Entity {
                                 xPosition() + (width() / 2),
                                 yPosition() + (height() / 2)), game)
                 );
-                new SoundFile("/sounds/shot.wav").play();
+                shootingSound.play();
             });
         }
     }

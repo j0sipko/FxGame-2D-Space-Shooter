@@ -42,6 +42,14 @@ import nschultz.game.ui.LightFromEast;
 
 public final class VideoSettingsState extends GameState {
 
+    private static final SoundFile selectSound = new SoundFile(
+            "/sounds/select.wav"
+    );
+
+    private static final SoundFile selectionSound = new SoundFile(
+            "/sounds/selection.wav"
+    );
+
     private final String[] options = new String[]{
             "Fullscreen",
             "Enable particles",
@@ -116,7 +124,7 @@ public final class VideoSettingsState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex--;
                     }
                     break;
@@ -124,12 +132,12 @@ public final class VideoSettingsState extends GameState {
                     if (currentIndex >= 3) {
                         currentIndex = 3;
                     } else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
-                    new SoundFile("/sounds/selection.wav").play();
+                    selectionSound.play();
                     if (currentIndex == 0) {
                         gameWindow.setFullScreen(!gameWindow.isFullScreen());
                         final boolean isFullScreenNow = gameWindow.isFullScreen();

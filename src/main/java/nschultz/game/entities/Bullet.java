@@ -39,6 +39,8 @@ import java.util.Random;
 
 public final class Bullet extends Entity {
 
+    private static final SoundFile crashSound = new SoundFile("/crash.wav");
+
     private final GameCanvas game;
 
     Bullet(final Point2D position, final GameCanvas game) {
@@ -70,7 +72,7 @@ public final class Bullet extends Entity {
 
                         kill();
                         enemy.kill();
-                        new SoundFile("/sounds/crash.wav").play();
+                        crashSound.play();
                         game.increaseScore();
 
                         if (game.particlesActive()) {

@@ -39,6 +39,14 @@ import nschultz.game.ui.GameCanvas;
 
 public final class SettingsState extends GameState {
 
+    private static final SoundFile selectSound = new SoundFile(
+            "/sounds/select.wav"
+    );
+
+    private static final SoundFile selectionSound = new SoundFile(
+            "/sounds/selection.wav"
+    );
+
     private static final int VIDEO_OPTION_INDEX = 0;
     private static final int BACK_INDEX = 1;
 
@@ -101,7 +109,7 @@ public final class SettingsState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex--;
                     }
                     break;
@@ -109,12 +117,12 @@ public final class SettingsState extends GameState {
                     if (currentIndex >= 1)
                         currentIndex = 1;
                     else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
-                    new SoundFile("/sounds/selection.wav").play();
+                    selectionSound.play();
                     if (currentIndex == VIDEO_OPTION_INDEX) {
                         game().switchGameState(new VideoSettingsState(game()));
                     } else if (currentIndex == BACK_INDEX) {

@@ -28,24 +28,30 @@ package nschultz.game.io;
 import nschultz.game.util.ErrorLog;
 
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 public final class SoundFile {
 
-    private final String resource;
+    private byte[] buf;
 
     public SoundFile(final String resource) {
-        this.resource = resource;
+        try {
+            buf = new BufferedInputStream(getClass().getResourceAsStream(resource)).readAllBytes();
+        } catch (final IOException ex) {
+            new ErrorLog(ex.toString()).log();
+        }
     }
 
     public void play() {
         try {
-            final var clip = AudioSystem.getClip();
+            final Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(
-                    new BufferedInputStream(
-                            getClass().getResourceAsStream(resource)))
+                    new ByteArrayInputStream(buf))
             );
             clip.addLineListener(e -> {
                 if (e.getType() == LineEvent.Type.STOP) {

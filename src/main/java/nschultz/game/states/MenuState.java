@@ -40,6 +40,18 @@ import nschultz.game.ui.GameCanvas;
 
 public final class MenuState extends GameState {
 
+    private static final SoundFile selectSound = new SoundFile(
+            "/sounds/select.wav"
+    );
+
+    private static final SoundFile selectionSound = new SoundFile(
+            "/sounds/selection.wav"
+    );
+
+    private static final SoundFile startSound = new SoundFile(
+            "/sounds/start.wav"
+    );
+
     private final String[] options = new String[]{
             "New game",
             "Highscore",
@@ -101,7 +113,7 @@ public final class MenuState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex--;
                     }
                     break;
@@ -109,25 +121,25 @@ public final class MenuState extends GameState {
                     if (currentIndex >= options.length - 1)
                         currentIndex = options.length - 1;
                     else {
-                        new SoundFile("/sounds/select.wav").play();
+                        selectSound.play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
                     if (currentIndex == START_INDEX) {
                         game().switchGameState(new Level1State(game()));
-                        new SoundFile("/sounds/start.wav").play();
+                        startSound.play();
                     } else if (currentIndex == HIGHSCORE_INDEX) {
-                        new SoundFile("/sounds/selection.wav").play();
+                        selectionSound.play();
                         game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {
-                        new SoundFile("/sounds/selection.wav").play();
+                        selectionSound.play();
                         game().switchGameState(new SettingsState(game()));
                     } else if (currentIndex == CREDITS_STATE) {
-                        new SoundFile("/sounds/selection.wav").play();
+                        selectionSound.play();
                         game().switchGameState(new CreditsState(game()));
                     } else {
-                        new SoundFile("/sounds/selection.wav").play();
+                        selectionSound.play();
                         Platform.exit();
                     }
                     break;
