@@ -112,7 +112,7 @@ public final class Player extends Entity {
                                 xPosition() + (width() / 2),
                                 yPosition() + (height() / 2)), game)
                 );
-                shootingSound.play();
+                if (game.isAudioEnabled()) shootingSound.play();
             });
         }
     }

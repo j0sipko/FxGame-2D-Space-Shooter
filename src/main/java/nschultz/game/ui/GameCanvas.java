@@ -38,6 +38,7 @@ import nschultz.game.core.GamePulseSystem;
 import nschultz.game.entities.Entity;
 import nschultz.game.entities.Player;
 import nschultz.game.states.*;
+import nschultz.game.states.settings.AudioSettingsState;
 import nschultz.game.states.settings.SettingsState;
 import nschultz.game.states.settings.VideoSettingsState;
 import nschultz.game.util.AttemptsToEnsureGc;
@@ -74,6 +75,7 @@ public final class GameCanvas extends Canvas {
     private double startingHeight;
     private boolean shouldRenderLevelChange;
     private boolean particlesActive = false;
+    private boolean isAudioEnabled = true;
 
     private double alpha = 0.0;
     private double delta = 0.009;
@@ -101,6 +103,7 @@ public final class GameCanvas extends Canvas {
                 !(state instanceof VictoryState) &&
                 !(state instanceof GameOverState) &&
                 !(state instanceof SettingsState) &&
+                !(state instanceof AudioSettingsState) &&
                 !(state instanceof VideoSettingsState) &&
                 !(state instanceof CreditsState) &&
                 !(state instanceof HighscoreState);
@@ -284,5 +287,17 @@ public final class GameCanvas extends Canvas {
 
     public boolean particlesActive() {
         return particlesActive;
+    }
+
+    public void enableSound() {
+        isAudioEnabled = true;
+    }
+
+    public void disableSound() {
+        isAudioEnabled = false;
+    }
+
+    public boolean isAudioEnabled() {
+        return isAudioEnabled;
     }
 }

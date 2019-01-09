@@ -34,10 +34,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import nschultz.game.io.SoundFile;
 import nschultz.game.states.GameState;
-import nschultz.game.states.MenuState;
 import nschultz.game.ui.GameCanvas;
 
-public final class SettingsState extends GameState {
+public final class AudioSettingsState extends GameState {
 
     private static final SoundFile selectSound = new SoundFile(
             "/sounds/select.wav"
@@ -47,18 +46,15 @@ public final class SettingsState extends GameState {
             "/sounds/selection.wav"
     );
 
-    private static final int VIDEO_OPTION_INDEX = 0;
-    private static final int AUDIO_OPTION_INDEX = 1;
-
-    private final String[] options = new String[]{
-            "Video",
-            "Audio",
+    private static final String[] options = new String[]{
+            "OFF",
             "Back"
     };
 
-    private int currentIndex = 0;
+    private static final int TOGGLE_INDEX = 0;
+    private int currentIndex;
 
-    public SettingsState(final GameCanvas game) {
+    AudioSettingsState(final GameCanvas game) {
         super(game);
     }
 
@@ -78,12 +74,12 @@ public final class SettingsState extends GameState {
         brush.setFill(Color.BLACK);
         brush.fillRect(0, 0, w, h);
 
-        final double maxWidth = 256;
+        final double maxWidth = 512;
         brush.setFont(Font.font(64));
         brush.setTextAlign(TextAlignment.CENTER);
         brush.setTextBaseline(VPos.CENTER);
         brush.setFill(Color.CYAN);
-        brush.fillText("Settings", w / 2, h / 3, 600);
+        brush.fillText("Audio settings", w / 2, h / 3, 600);
 
         brush.setFont(Font.font(48));
         for (int i = 0; i < options.length; i++) {
@@ -124,12 +120,16 @@ public final class SettingsState extends GameState {
                     break;
                 case ENTER:
                     if (game().isAudioEnabled()) selectionSound.play();
-                    if (currentIndex == VIDEO_OPTION_INDEX) {
-                        game().switchGameState(new VideoSettingsState(game()));
-                    } else if (currentIndex == AUDIO_OPTION_INDEX) {
-                        game().switchGameState(new AudioSettingsState(game()));
+                    if (currentIndex == TOGGLE_INDEX) {
+                        if (options[TOGGLE_INDEX].equals("OFF")) {
+                            options[TOGGLE_INDEX] = "ON";
+                            game().disableSound();
+                        } else {
+                            options[TOGGLE_INDEX] = "OFF";
+                            game().enableSound();
+                        }
                     } else {
-                        game().switchGameState(new MenuState(game()));
+                        game().switchGameState(new SettingsState(game()));
                     }
                     break;
             }

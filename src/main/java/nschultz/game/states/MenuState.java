@@ -113,7 +113,7 @@ public final class MenuState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        selectSound.play();
+                        if (game().isAudioEnabled()) selectSound.play();
                         currentIndex--;
                     }
                     break;
@@ -121,25 +121,25 @@ public final class MenuState extends GameState {
                     if (currentIndex >= options.length - 1)
                         currentIndex = options.length - 1;
                     else {
-                        selectSound.play();
+                        if (game().isAudioEnabled()) selectSound.play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
                     if (currentIndex == START_INDEX) {
                         game().switchGameState(new Level1State(game()));
-                        startSound.play();
+                        if (game().isAudioEnabled()) startSound.play();
                     } else if (currentIndex == HIGHSCORE_INDEX) {
-                        selectionSound.play();
+                        if (game().isAudioEnabled()) selectionSound.play();
                         game().switchGameState(new HighscoreState(game()));
                     } else if (currentIndex == SETTINGS_INDEX) {
-                        selectionSound.play();
+                        if (game().isAudioEnabled()) selectionSound.play();
                         game().switchGameState(new SettingsState(game()));
                     } else if (currentIndex == CREDITS_STATE) {
-                        selectionSound.play();
+                        if (game().isAudioEnabled()) selectionSound.play();
                         game().switchGameState(new CreditsState(game()));
                     } else {
-                        selectionSound.play();
+                        if (game().isAudioEnabled()) selectionSound.play();
                         Platform.exit();
                     }
                     break;

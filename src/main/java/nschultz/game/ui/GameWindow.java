@@ -57,13 +57,13 @@ public final class GameWindow {
                 SpriteSheet.instance().sprite(1, 1, 16, 16)
         );
         primaryStage.setTitle("FxSpace shooter v0.1.0 ALPHA");
+        primaryStage.setScene(scene);
         primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setWidth(resolution.getWidth());
         primaryStage.setHeight(resolution.getHeight());
         primaryStage.setMinWidth(resolution.getWidth());
         primaryStage.setMinHeight(resolution.getHeight());
-        primaryStage.setScene(scene);
         primaryStage.iconifiedProperty().addListener((obs, oVal, nVal)
                 -> canvas.pause());
         primaryStage.show();

@@ -124,7 +124,7 @@ public final class VideoSettingsState extends GameState {
                     if (currentIndex <= 0)
                         currentIndex = 0;
                     else {
-                        selectSound.play();
+                        if (game().isAudioEnabled()) selectSound.play();
                         currentIndex--;
                     }
                     break;
@@ -132,12 +132,12 @@ public final class VideoSettingsState extends GameState {
                     if (currentIndex >= 3) {
                         currentIndex = 3;
                     } else {
-                        selectSound.play();
+                        if (game().isAudioEnabled()) selectSound.play();
                         currentIndex++;
                     }
                     break;
                 case ENTER:
-                    selectionSound.play();
+                    if (game().isAudioEnabled()) selectionSound.play();
                     if (currentIndex == 0) {
                         gameWindow.setFullScreen(!gameWindow.isFullScreen());
                         final boolean isFullScreenNow = gameWindow.isFullScreen();
