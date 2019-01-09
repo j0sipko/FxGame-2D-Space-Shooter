@@ -49,14 +49,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public final class GameCanvas extends Canvas {
 
     private final GamePulseSystem pulseSystem = new GamePulseSystem(this);
     private final GraphicsContext brush = getGraphicsContext2D();
-    private final List<Entity> entities = new ArrayList<>();
-    private final List<Entity> copyOfEntities = new ArrayList<>();
+    private final List<Entity> entities = new CopyOnWriteArrayList<>();
     private final List<MovingParticle> stars = new ArrayList<>();
     private final List<AlphaParticle> explosionParticles = new ArrayList<>();
     private final Random starRandom = new Random(64);
@@ -122,9 +122,6 @@ public final class GameCanvas extends Canvas {
     }
 
     public void update(final long now) {
-        entities.addAll(copyOfEntities);
-        copyOfEntities.clear();
-
         currentGameState.update(now);
         if (particlesActive) {
             starDelay.runAfterDelayExact(now, () ->
@@ -217,7 +214,7 @@ public final class GameCanvas extends Canvas {
     }
 
     public void spawn(final Entity entity) {
-        copyOfEntities.add(entity);
+        entities.add(entity);
     }
 
     public Dimension2D resolution() {
