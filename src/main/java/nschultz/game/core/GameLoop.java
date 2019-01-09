@@ -31,7 +31,7 @@ import nschultz.game.util.TimeDelayedProcedure;
 
 import java.util.concurrent.TimeUnit;
 
-public final class GamePulseSystem extends AnimationTimer {
+public final class GameLoop extends AnimationTimer {
 
     private final TimeDelayedProcedure delay = new TimeDelayedProcedure(
             1, TimeUnit.SECONDS
@@ -41,7 +41,7 @@ public final class GamePulseSystem extends AnimationTimer {
     private int frames;
     private boolean isRunning;
 
-    public GamePulseSystem(final GameCanvas game) {
+    public GameLoop(final GameCanvas game) {
         this.game = game;
     }
 

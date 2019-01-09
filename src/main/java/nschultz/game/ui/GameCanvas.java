@@ -34,7 +34,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import nschultz.game.core.GamePulseSystem;
+import nschultz.game.core.GameLoop;
 import nschultz.game.entities.Entity;
 import nschultz.game.entities.Player;
 import nschultz.game.states.*;
@@ -54,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class GameCanvas extends Canvas {
 
-    private final GamePulseSystem pulseSystem = new GamePulseSystem(this);
+    private final GameLoop gameLoop = new GameLoop(this);
     private final GraphicsContext brush = getGraphicsContext2D();
     private final List<Entity> entities = new CopyOnWriteArrayList<>();
     private final List<MovingParticle> stars = new ArrayList<>();
@@ -110,7 +110,7 @@ public final class GameCanvas extends Canvas {
     }
 
     void startPulseSystem() {
-        if (pulseSystem.isRunning())
+        if (gameLoop.isRunning())
             return;
 
         startingWidth = getWidth();
@@ -118,7 +118,7 @@ public final class GameCanvas extends Canvas {
         player = new Player(new Point2D(startingWidth / 2, (startingHeight / 2) + 64), this);
         entities.add(player);
         new AttemptsToEnsureGc(2).run();
-        pulseSystem.start();
+        gameLoop.start();
     }
 
     public void update(final long now) {
@@ -197,8 +197,8 @@ public final class GameCanvas extends Canvas {
 
     private void renderFPSCounter() {
         brush.setFont(Font.font(14));
-        brush.setFill(pulseSystem.isLagging() ? Color.RED : Color.YELLOW);
-        brush.fillText("FPS/UPS: " + pulseSystem.fps(), 32, 32);
+        brush.setFill(gameLoop.isLagging() ? Color.RED : Color.YELLOW);
+        brush.fillText("FPS/UPS: " + gameLoop.fps(), 32, 32);
     }
 
     public List<Entity> entities() {
@@ -250,10 +250,10 @@ public final class GameCanvas extends Canvas {
 
     void pause() {
         if (isPlayableState(currentGameState.value())) {
-            if (pulseSystem.isRunning()) {
-                pulseSystem.stop();
+            if (gameLoop.isRunning()) {
+                gameLoop.stop();
             } else {
-                pulseSystem.start();
+                gameLoop.start();
             }
         }
     }
