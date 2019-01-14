@@ -56,7 +56,7 @@ public class MenuStateTest {
     }
 
     @Test
-    public void testMenuOptions()
+    public void testMenuOptionsCount()
     {
         GameState state = new MenuState(null);
         assertEquals(((MenuState) state).getOptions().length, 5);
